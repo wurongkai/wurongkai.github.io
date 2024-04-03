@@ -1,0 +1,97 @@
+html,
+body,
+#cesiumContainer {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+/* 隐藏水平滚动条 */
+body::-webkit-scrollbar {
+    width: 0; /* For WebKit browsers */
+  }
+  
+  body {
+    overflow-x: hidden; /* 针对所有主流浏览器 */
+  }
+  
+  /* 隐藏垂直滚动条 */
+  body::-webkit-scrollbar {
+    height: 0; /* For WebKit browsers */
+  }
+  
+  body {
+    overflow-y: hidden; /* 针对所有主流浏览器 */
+  }
+  
+  /* 但是为了让内容仍然可滚动，你需要包裹在一个有滚动条的容器中 */
+  .scrollable-container {
+    overflow-y: scroll; /* 显示垂直滚动条 */
+    overflow-x: hidden; /* 隐藏水平滚动条，如果不需要水平滚动的话 */
+    width: 100%; /* 保证容器宽度 */
+    height: 100%; /* 保证容器高度，根据需要设置具体的高度 */
+    scrollbar-width: none; /* 针对Firefox浏览器隐藏滚动条 */
+    -ms-overflow-style: none; /* 针对Internet Explorer和Edge浏览器隐藏滚动条 */
+  }
+  
+  /* 注意：在Firefox中，由于上面设置了scrollbar-width为none，滚动条不可见，但内容仍可滚动 */
+  
+  /* 如果你想让滚动条不可见但依然能显示滚动效果，可以尝试以下方法（仅适用于Webkit内核浏览器如Chrome） */
+  .scrollable-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  .drop-over {
+    opacity:0;
+  }
+/* 卡片容器样式 */
+.card-container {
+    width: 22%;
+    height: 90%;
+    overflow: auto;
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    z-index: 99;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.card {
+    background-color: white;
+    /* border-radius: 6px; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    /* padding: 1.5rem; */
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card__title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.card__content {
+    line-height: 1.5;
+    color: #666;
+}
+
+.card__image {
+    width: 100%;
+    height: auto;
+    /* margin-bottom: 1rem; */
+    object-fit:cover;
+}
