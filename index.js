@@ -1,20 +1,3 @@
-
-// let now = new Date()
-// while((new Date().getTime)-now.getTime()<1000*60*2){
-
-// }
-function sleep(d){  
-    let t = Date.now();
-    while(Date.now() - t <= d);  
-}
-
-function test(t) {
-    alert('sleep');
-    sleep(t);
-    alert('run');
-}
-
-
 /** 1.初始化cesium并加载数据*/
 Cesium.Ion.defaultAccessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NGM4MDcxOS05Zjk3LTQ2YmMtYjAxYi0zYTczNWFkYzFlN2EiLCJpZCI6NzY0NTcsImlhdCI6MTYzOTQ2ODI2NH0.Zsp28WnnCpj4wlAIQwIwcSob228zSaz510QE3zKQN58";
@@ -28,7 +11,6 @@ viewer.scene.globe.depthTestAgainstTerrain = false;
 var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
 var screenPosition;
 
-// test(1000*60)
 function xyToLonlat(clickPosition) {
     // 使用Viewer的pickPosition方法从屏幕坐标转换到世界坐标（笛卡尔坐标）
     var cartesianPosition = viewer.camera.pickEllipsoid(
@@ -57,52 +39,52 @@ function xyToLonlat(clickPosition) {
     }
 }
 
-var myDataSource;
-// fetch("https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json")
-//     .then((response) =>
-//         response.ok ? response.json() : Promise.reject(response)
-//     )
-//     .then((data) => {
-//         console.log("GeoJsonData", data);
-//         GeoJsonData = data;
-//         // 处理数据
-//         var GeoJsonDataPromise = viewer.dataSources.add(
-//             Cesium.GeoJsonDataSource.load(data, {
-//                 fill: Cesium.Color.PINK, //填充色
-//                 stroke: Cesium.Color.HOTPINK, //轮廓颜色
-//                 strokeWidth: 0, //轮廓宽度
-//             })
-//         );
-//         GeoJsonDataPromise.then((dataSource) => {
-//             myDataSource = dataSource;
-//             viewer.zoomTo(GeoJsonDataPromise);
-//             myDataSource.entities.values.forEach(function (entity) {
-//                 entity.show = false;
-//             });
-//             // 或者使用更平滑过渡的效果（如果支持）
-//             viewer.scene.morphTo2D();
-//         });
-//     })
-//     .catch((error) => console.error("Error:", error));
+var myDataSource;GeoJsonData
+fetch("https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json")
+    .then((response) =>
+        response.ok ? response.json() : Promise.reject(response)
+    )
+    .then((data) => {
+        console.log("GeoJsonData", data);
+        GeoJsonData = data;
+        // 处理数据
+        var GeoJsonDataPromise = viewer.dataSources.add(
+            Cesium.GeoJsonDataSource.load(data, {
+                fill: Cesium.Color.PINK, //填充色
+                stroke: Cesium.Color.HOTPINK, //轮廓颜色
+                strokeWidth: 0, //轮廓宽度
+            })
+        );
+        GeoJsonDataPromise.then((dataSource) => {
+            myDataSource = dataSource;
+            viewer.zoomTo(GeoJsonDataPromise);
+            myDataSource.entities.values.forEach(function (entity) {
+                entity.show = false;
+            });
+            // 或者使用更平滑过渡的效果（如果支持）
+            viewer.scene.morphTo2D();
+        });
+    })
+    .catch((error) => console.error("Error:", error));
 
 // GeoJsonData = JSON.parse(GeoJsonData)
-// 处理数据
-var GeoJsonDataPromise = viewer.dataSources.add(
-    Cesium.GeoJsonDataSource.load(GeoJsonData, {
-        fill: Cesium.Color.PINK, //填充色
-        stroke: Cesium.Color.HOTPINK, //轮廓颜色
-        strokeWidth: 0, //轮廓宽度
-    })
-);
-GeoJsonDataPromise.then((dataSource) => {
-    myDataSource = dataSource;
-    viewer.zoomTo(GeoJsonDataPromise);
-    myDataSource.entities.values.forEach(function (entity) {
-        entity.show = false;
-    });
-    // 或者使用更平滑过渡的效果（如果支持）
-    viewer.scene.morphTo2D();
-});
+// // 处理数据
+// var GeoJsonDataPromise = viewer.dataSources.add(
+//     Cesium.GeoJsonDataSource.load(GeoJsonData, {
+//         fill: Cesium.Color.PINK, //填充色
+//         stroke: Cesium.Color.HOTPINK, //轮廓颜色
+//         strokeWidth: 0, //轮廓宽度
+//     })
+// );
+// GeoJsonDataPromise.then((dataSource) => {
+//     myDataSource = dataSource;
+//     viewer.zoomTo(GeoJsonDataPromise);
+//     myDataSource.entities.values.forEach(function (entity) {
+//         entity.show = false;
+//     });
+//     // 或者使用更平滑过渡的效果（如果支持）
+//     viewer.scene.morphTo2D();
+// });
 
 function setImgAndDrag() {
     // 获取目标父节点
@@ -446,7 +428,6 @@ function setImgAndDrag() {
         }
     };
 }
-setTimeout(test(1000*30),1000*10)
 setImgAndDrag();
 // 定义一个方法，根据特定属性筛选并隐藏或显示要素
 function toggleFeatureVisibility(
