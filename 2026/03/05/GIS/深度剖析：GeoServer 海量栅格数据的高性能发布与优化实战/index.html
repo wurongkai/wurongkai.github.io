@@ -19,15 +19,15 @@
   <meta name="author" content="Rongkai Wu">
   <meta name="keywords" content="keywords">
   
-    <meta name="description" content="这篇博客旨在帮助你从底层原理到实战应用全面掌握 GeoServer 大规模栅格数据的处理方案。  深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战在地理信息系统（GIS）领域，处理 GB 甚至 TB 级的卫星影像、无人机航拍数据一直是性能瓶颈。如果你只是简单的把一个几十 GB 的 TIF 文件丢进 GeoServer，结果往往是服务器内存溢出或前端加载旋转半天。 本文将深度拆解 I">
+    <meta name="description" content="深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战在地理信息系统（GIS）领域，处理 GB 甚至 TB 级的卫星影像、无人机航拍数据一直是性能瓶颈。如果你只是简单的把一个几十 GB 的 TIF 文件丢进 GeoServer，结果往往是服务器内存溢出或前端加载旋转半天。 本文将深度拆解 ImageMosaic + GeoWebCache (WMTS) 方案，告诉你如何让海量栅格数据“">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战">
 <meta property="og:url" content="https://wurongkai.github.io/2026/03/05/GIS/%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%EF%BC%9AGeoServer%20%E6%B5%B7%E9%87%8F%E6%A0%85%E6%A0%BC%E6%95%B0%E6%8D%AE%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E5%8F%91%E5%B8%83%E4%B8%8E%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98/index.html">
 <meta property="og:site_name" content="Hello World">
-<meta property="og:description" content="这篇博客旨在帮助你从底层原理到实战应用全面掌握 GeoServer 大规模栅格数据的处理方案。  深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战在地理信息系统（GIS）领域，处理 GB 甚至 TB 级的卫星影像、无人机航拍数据一直是性能瓶颈。如果你只是简单的把一个几十 GB 的 TIF 文件丢进 GeoServer，结果往往是服务器内存溢出或前端加载旋转半天。 本文将深度拆解 I">
+<meta property="og:description" content="深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战在地理信息系统（GIS）领域，处理 GB 甚至 TB 级的卫星影像、无人机航拍数据一直是性能瓶颈。如果你只是简单的把一个几十 GB 的 TIF 文件丢进 GeoServer，结果往往是服务器内存溢出或前端加载旋转半天。 本文将深度拆解 ImageMosaic + GeoWebCache (WMTS) 方案，告诉你如何让海量栅格数据“">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-05T13:28:29.414Z">
-<meta property="article:modified_time" content="2026-03-05T13:33:40.270Z">
+<meta property="article:modified_time" content="2026-03-10T01:08:32.332Z">
 <meta property="article:author" content="Rongkai Wu">
 <meta property="article:tag" content="COG">
 <meta property="article:tag" content="GeoServer">
@@ -280,8 +280,7 @@
             
               <div class="markdown-body">
                 
-                <p>这篇博客旨在帮助你从底层原理到实战应用全面掌握 GeoServer 大规模栅格数据的处理方案。</p>
-<hr>
+                <hr>
 <h1 id="深度剖析：GeoServer-海量栅格数据的高性能发布与优化实战"><a href="#深度剖析：GeoServer-海量栅格数据的高性能发布与优化实战" class="headerlink" title="深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战"></a>深度剖析：GeoServer 海量栅格数据的高性能发布与优化实战</h1><p>在地理信息系统（GIS）领域，处理 GB 甚至 TB 级的卫星影像、无人机航拍数据一直是性能瓶颈。如果你只是简单的把一个几十 GB 的 TIF 文件丢进 GeoServer，结果往往是服务器内存溢出或前端加载旋转半天。</p>
 <p>本文将深度拆解 <strong>ImageMosaic + GeoWebCache (WMTS)</strong> 方案，告诉你如何让海量栅格数据“丝滑”呈现。</p>
 <hr>
@@ -334,6 +333,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/GIS/" class="category-chain-item">GIS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
     <div class="post-meta">
